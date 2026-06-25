@@ -10,14 +10,7 @@
     <link rel="stylesheet" href="{% static "Insurance/css/mobile.css" %}">
 </head>
 <body>
-    <nav>
-    <a href="{% url 'home' %}">Guard.In</a>
-    <a href="{% url 'dashboard' %}">Dashboard</a>
-    <a href="{% url 'add_policy' %}">Policies</a>
-    <a href="{% url 'file_claim' %}">Claims</a>
-    <a href="{% url 'profile' %}">Profile</a>
-    <a href="{% url 'logout' %}">Logout</a>
-  </nav>
+
     
     {% block we %}{% endblock we %}
 </body>
