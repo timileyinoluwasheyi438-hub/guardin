@@ -22,23 +22,46 @@ def contact(request):
 def signup(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
+    
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.email = request.POST.get('email', '')
-            user.first_name = request.POST.get('first_name', '')
-            user.last_name = request.POST.get('last_name', '')
-            user.save()
-            # Auto-create profile
-            UserProfile.objects.get_or_create(user=user)
-            login(request, user)
-            messages.success(request, f'Welcome to Guard.In, {user.first_name or user.username}!')
-            return redirect('dashboard')
-    else:
-        form = UserCreationForm()
-    return render(request, 'insurance/signup.html', {'form': form})
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
 
+        # Validation
+        if password1 != password2:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'insurance/signup.html')
+
+        if user.objects.filter(username=username).exists():
+            messages.error(request, 'Username already taken.')
+            return render(request, 'insurance/signup.html')
+
+        if user.objects.filter(email=email).exists():
+            messages.error(request, 'Email already registered.')
+            return render(request, 'insurance/signup.html')
+
+     
+        user = user.objects.create_user(
+            username=username,
+            email=email,
+            password=password1,
+            first_name=first_name,
+            last_name=last_name,
+        )
+        user.save()
+
+        # Auto create profile
+        UserProfile.objects.create(user=user)
+
+        # DON'T login yet — send to login page
+        messages.success(request, 'Account created! Please log in.')
+        return redirect('login')  # ← goes to login, not dashboard
+
+    return render(request, 'insurance/signup.html')
 
 def login_view(request):
     if request.user.is_authenticated:

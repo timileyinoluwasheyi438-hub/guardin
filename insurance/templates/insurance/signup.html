@@ -1,7 +1,6 @@
 
 {% extends 'insurance/base.html' %}
 {% load static %}
-
 {% block we %}
 <style>
   body {
@@ -124,24 +123,25 @@
   }
 </style>
 
-<div class="signup-card">
-  <h2>Create Account</h2>
 
-  <form method="post">
-    {% csrf_token %}
+{% block we %}
+<form method="POST">
+  {% csrf_token %}
+  <input type="text" name="first_name" placeholder="First name" required/>
+  <input type="text" name="last_name" placeholder="Last name" required/>
+  <input type="text" name="username" placeholder="Username" required/>
+  <input type="email" name="email" placeholder="Email" required/>
+  <input type="password" name="password1" placeholder="Password" required/>
+  <input type="password" name="password2" placeholder="Confirm password" required/>
 
-    <div class="email-group">
-      <label for="id_email">Email address</label>
-      <input type="email" name="email" id="id_email" required placeholder="Enter your email">
-    </div>
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color:red">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
 
-    {{ form.as_p }}
+  <button type="submit">Create Account</button>
+  <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+</form>
+{% endblock we %}
 
-    <button type="submit" class="btn">Sign Up</button>
-  </form>
-
-  <div class="switch-text">
-    Already have an account? <a href="{% url 'login' %}">Log In</a>
-  </div>
-</div>
-{% endblock content %}
