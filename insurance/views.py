@@ -7,6 +7,7 @@ from django.db.models import Sum
 from .models import UserProfile, Policy, Claim
 from .forms import ProfileUpdateForm, ClaimForm, PolicyForm
 import uuid
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -36,16 +37,16 @@ def signup(request):
             messages.error(request, 'Passwords do not match.')
             return render(request, 'insurance/signup.html')
 
-        if user.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists():
             messages.error(request, 'Username already taken.')
             return render(request, 'insurance/signup.html')
 
-        if user.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists():
             messages.error(request, 'Email already registered.')
             return render(request, 'insurance/signup.html')
 
      
-        user = user.objects.create_user(
+        user = User.objects.create_user(
             username=username,
             email=email,
             password=password1,
@@ -55,7 +56,7 @@ def signup(request):
         user.save()
 
         # Auto create profile
-        UserProfile.objects.create(user=user)
+        UserProfile.objects.create(user=User)
 
         # DON'T login yet — send to login page
         messages.success(request, 'Account created! Please log in.')
