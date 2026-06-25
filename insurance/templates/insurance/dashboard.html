@@ -313,22 +313,22 @@ font-weight: 700;
     <!-- Stat Cards -->
     <div class="stat-cards">
        <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/images/verified.png" %}" alt="" width="20px"></div>
+        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/verified.png" %}" alt="" width="20px"></div>
         <div class="sc-num">{{ open_claim_count }}</div>
         <div class="sc-lbl">Open Claims</div>
       </div>
     <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/images/open.png" %}" alt="" width="20px"></div>
+        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/open.png" %}" alt="" width="20px"></div>
         <div class="sc-num">{{ open_claim_count }}</div>
         <div class="sc-lbl">Open Claims</div>
       </div>
       <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/images/money.png" %}" alt="" width="20px"></div>
+        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/money.png" %}" alt="" width="20px"></div>
         <div class="sc-num">₦{{ total_premium_paid|floatformat:0 }}</div>
         <div class="sc-lbl">Premiums Paid</div>
       </div>
       <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/images/claim2.png" %}" alt="" width="20px"></div>
+        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/claim2.png" %}" alt="" width="20px"></div>
         <div class="sc-num">₦{{ total_paid|floatformat:0 }}</div>
         <div class="sc-lbl">Claims Paid Out</div>
       </div>
@@ -433,16 +433,16 @@ font-weight: 700;
 <nav class="mobile-nav">
   <div class="mn-items">
     <a href="{% url 'dashboard' %}" class="mn-item active">
-      <span class="mn-icon"><img src="{% static "insurance/images/homie.png" %}" alt="" width="20px"></span> Home
+      <span class="mn-icon"><img src="{% static "insurance/static/insurance/images/homie.png" %}" alt="" width="20px"></span> Home
     </a>
     <a href="{% url 'file_claim' %}" class="mn-item">
-      <span class="mn-icon"><img src="{% static "insurance/images/claim2.png" %}" alt="" width="20px"></span> Claims
+      <span class="mn-icon"><img src="{% static "insurance/static/insurance/images/claim2.png" %}" alt="" width="20px"></span> Claims
     </a>
     <a href="{% url 'add_policy' %}" class="mn-item">
-      <span class="mn-icon"><img src="{% static "insurance/images/verified.png" %}" alt="" width="20px"></span> Policies
+      <span class="mn-icon"><img src="{% static "insurance/static/insurance/images/verified.png" %}" alt="" width="20px"></span> Policies
     </a>
     <a href="{% url 'profile' %}" class="mn-item">
-<span class="mn-icon"><img src="{% static "insurance/images/pro.png" %}" alt="" width="20px"></span> Profile
+<span class="mn-icon"><img src="{% static "insurance/static/insurance/images/pro.png" %}" alt="" width="20px"></span> Profile
     </a>
   </div>
 </nav>
