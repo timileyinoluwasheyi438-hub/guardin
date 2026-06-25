@@ -1,0 +1,74 @@
+
+{% extends "insurance/base.html" %}
+{% block we %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guard.In - Log In</title>
+    <style>
+        body {
+            background-color: #1a2332;
+            color: #ffffff;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-card {
+            background-color: #111827;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #2d3748;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+        h2 { margin-bottom: 20px; color: #00ffaa; }
+        form p { text-align: left; margin-bottom: 15px; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #2d3748;
+            background-color: #1a2332;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #00ffaa;
+            color: #111827;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .switch-text { margin-top: 15px; font-size: 14px; color: #a0aec0; }
+        .switch-text a { color: #00ffaa; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>Welcome Back</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Log In</button>
+        </form>
+
+        <div class="switch-text">
+            Don't have an account? <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+    </div>
+
+</body>
+</html>{% endblock we %}

@@ -1,0 +1,65 @@
+{% extends 'insurance/base.html' %}
+
+{% block we %}
+<style>
+  .form-wrap { max-width: 700px; margin: 60px auto; padding: 0 20px; }
+  .form-card { background: #fff; border-radius: 16px; border: 1.5px solid #e2e5ea; padding: 36px; }
+  .form-title { font-size: 1.4rem; font-weight: 800; color: #0d1b3e; margin-bottom: 6px; }
+  .form-sub { color: #6b7280; font-size: 0.875rem; margin-bottom: 28px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .form-group label { font-size: 0.8rem; font-weight: 700; color: #0d1b3e; }
+  .form-group input, .form-group select {
+    padding: 11px 14px; border: 1.5px solid #e2e5ea; border-radius: 8px;
+    font-family: inherit; font-size: 0.875rem; background: #f0f2f5;
+  }
+  .form-group input:focus, .form-group select:focus {
+    outline: none; border-color: #2ec4a0; background: #fff;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .btn-teal { background: #2ec4a0; color: #0d1b3e; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; width: 100%; }
+</style>
+
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-title">📄 Add a Policy</div>
+    <div class="form-sub">Register a new insurance policy to your account.</div>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label>Insurance Type</label>
+        {{ form.policy_type }}
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Date</label>
+          {{ form.start_date }}
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          {{ form.end_date }}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Annual Premium (₦)</label>
+          {{ form.premium_amount }}
+        </div>
+        <div class="form-group">
+          <label>Coverage Amount (₦)</label>
+          {{ form.coverage_amount }}
+        </div>
+      </div>
+
+      <button class="btn-teal" type="submit">Add Policy →</button>
+    </form>
+
+    <p style="margin-top:16px;text-align:center;font-size:0.8rem;color:#6b7280">
+      <a href="{% url 'dashboard' %}" style="color:#2ec4a0;font-weight:600">← Back to Dashboard</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

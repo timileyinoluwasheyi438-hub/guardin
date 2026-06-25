@@ -1,0 +1,147 @@
+
+{% extends 'insurance/base.html' %}
+{% load static %}
+
+{% block we %}
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a2f4a 50%, #0d1b2a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .signup-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 0 40px rgba(45, 217, 163, 0.08);
+  }
+
+  .signup-card h2 {
+    color: #2dd9a3;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .signup-card label {
+    display: block;
+    color: #a0b4c8;
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .signup-card input {
+    width: 100%;
+    padding: 11px 14px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+  }
+
+  .signup-card input:focus {
+    border-color: #2dd9a3;
+    box-shadow: 0 0 0 3px rgba(45, 217, 163, 0.15);
+  }
+
+  /* Hide Django's default help text / bullet list */
+  .signup-card ul {
+    list-style: none;
+    padding: 0;
+    margin: -10px 0 14px;
+  }
+
+  .signup-card ul li {
+    color: #64748b;
+    font-size: 11.5px;
+    padding: 2px 0;
+  }
+
+  .signup-card .helptext {
+    color: #64748b;
+    font-size: 11.5px;
+    display: block;
+    margin: -10px 0 14px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: #2dd9a3;
+    color: #0d1b2a;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 16px rgba(45, 217, 163, 0.3);
+  }
+
+  .btn:hover {
+    background: #22b88a;
+    box-shadow: 0 0 24px rgba(45, 217, 163, 0.5);
+  }
+
+  .switch-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #a0b4c8;
+    font-size: 13px;
+  }
+
+  .switch-text a {
+    color: #2dd9a3;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .switch-text a:hover {
+    text-decoration: underline;
+  }
+
+  /* Email field you manually added */
+  .email-group {
+    margin-bottom: 4px;
+  }
+</style>
+
+<div class="signup-card">
+  <h2>Create Account</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="email-group">
+      <label for="id_email">Email address</label>
+      <input type="email" name="email" id="id_email" required placeholder="Enter your email">
+    </div>
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn">Sign Up</button>
+  </form>
+
+  <div class="switch-text">
+    Already have an account? <a href="{% url 'login' %}">Log In</a>
+  </div>
+</div>
+{% endblock content %}

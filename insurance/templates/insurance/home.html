@@ -1,0 +1,448 @@
+{% extends "insurance/base.html" %}
+{% block title %}Dashboard{% endblock title %}
+{% block we %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guard.In — Insurance Protects Your Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+{% load static %}
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static "insurance/css/style.css" %}">
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#top" class="logo">Guard<span class="dot">.In</span></a>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="#top" class="active">Home</a>
+      <a href="#trust">About Us</a>
+      <a href="#services">Insurance</a>
+      <a href="#process">How it Works</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions">
+      
+      <a href="{% url 'signup' %}" class="btn btn-pill btn-dark">Sign Up</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="top">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">Daily Activity</span>
+      <h1>Insurance Protects <br>Your Life.</h1>
+      <p class="lead">We build coverage around the way you actually live — clear terms, fair pricing, and a team that picks up the phone when it matters most.</p>
+
+      <div class="hero-cta-row">
+        <a href="" class="btn btn-pill btn-dark btn-icon">
+          Get Started
+          <span class="icon-circle gradient-fill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="#10141c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <button class="video-link" type="button">
+          <span class="play-circle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8V4z"/></svg>
+          </span>
+          Video Introduction
+        </button>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat">
+          <strong>30+</strong>
+          <span>Years of Experience</span>
+        </div>
+        <div class="stat">
+          <strong>15+</strong>
+          <span>Insurance Services</span>
+        </div>
+        <div class="stat">
+          <strong>240K</strong>
+          <span>Happy Clients</span>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="hero-visual" aria-hidden="true">
+  <span class="orbit-ring"></span>
+  <div class="circle circle-lg" style="background-image: url('{% static 'insurance/images/img1.jpeg' %}'), var(--gradient);"></div>
+  <div class="circle circle-sm" style="background-image: url('{% static 'insurance/images/imgw.jpeg' %}'), var(--gradient);"></div>
+</div>
+  </div> 
+</section>
+
+<!-- ========== HIGHLIGHT BAND ========== -->
+<section class="highlight-band">
+  <div class="container highlight-grid">
+    <div class="highlight-item">
+      <strong>98%</strong>
+      <span>Claims approved</span>
+    </div>
+    <div class="highlight-item">
+      <strong>24/7</strong>
+      <span>Claims support</span>
+    </div>
+    <div class="highlight-item">
+      <strong>4.9 / 5</strong>
+      <span>Average client rating</span>
+    </div>
+    <div class="highlight-item">
+      <strong>48 hrs</strong>
+      <span>Avg. payout time</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section class="services" id="services">
+  <div class="container">
+    <span class="eyebrow center">What We Cover</span>
+    <h2 class="section-title center">Coverage built around <br>how you actually live.</h2>
+
+    <div class="card-grid">
+      <article class="img-card">
+        <span class="img-card-num">01</span>
+        <div class="img-card-media" style="background-image: url('{% static 'insurance/images/car.jpg' %}');"></div>
+        <span class="img-card-label">Auto Insurance</span>
+      </article>
+
+      <article class="img-card">
+        <span class="img-card-num">02</span>
+        <div class="img-card-media" style="background-image: url('{% static 'insurance/images/health.jpg' %}');"></div>
+        <span class="img-card-label">Health Insurance</span>
+      </article>
+
+      <article class="img-card">
+        <span class="img-card-num">03</span>
+        <div class="img-card-media" style="background-image: url('{% static 'insurance/images/home.jpg' %}');"></div>
+        <span class="img-card-label">Home Insurance</span>
+      </article>
+
+      <article class="img-card">
+        <span class="img-card-num">04</span>
+        <div class="img-card-media" style="background-image: url('{% static 'insurance/images/plant.jpg' %}');"></div>
+        <span class="img-card-label">Life Insurance</span>
+      </article>
+    </div>
+  </div>
+</section>
+<!-- ========== TRUST ========== -->
+<section class="trust" id="trust">
+  <div class="container trust-grid">
+    <div class="trust-copy">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2 class="section-title">Why can you <span class="text-gradient">trust</span> us?</h2>
+      <p>Our policies cover a wide range of risks, from protecting your property to safeguarding your health and well-being. We offer comprehensive solutions so you're fully covered, not just partially.</p>
+      <p>Every plan can be tailored to your situation. Whether it's your car, your home, or your health, we'll shape a policy that actually fits — not the other way around.</p>
+      <p>We write every policy in plain language. No hidden clauses, no buried fine print — you'll always know exactly what's covered and what isn't.</p>
+
+      <ul class="check-list">
+        <li><span class="check-dot"></span> Licensed advisors in all 50 states</li>
+        <li><span class="check-dot"></span> No-penalty cancellation, anytime</li>
+        <li><span class="check-dot"></span> Claims tracked in real time</li>
+      </ul>
+    </div>
+
+    <div class="trust-visual" aria-hidden="true">
+      <span class="orbit-ring small"></span>
+      <div class="policy-card">
+        <div class="policy-card-head">
+          <span class="icon-circle gradient-fill small">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z" stroke="#10141c" stroke-width="1.8"/></svg>
+          </span>
+          <div>
+            <strong>Policy No. GD-29841</strong>
+            <span>Comprehensive Cover</span>
+          </div>
+        </div>
+        <div class="policy-line"></div>
+        <div class="policy-line short"></div>
+        <div class="policy-line"></div>
+        <div class="policy-stamp">
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1FD1B8" stroke-width="1.6" stroke-dasharray="2 3"/><path d="M8 12.5l2.6 2.6L16 9.5" stroke="#1FD1B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Verified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="process" id="process">
+  <div class="container">
+    <span class="eyebrow center">How It Works</span>
+    <h2 class="section-title center">How does the insurance <br>process work?</h2>
+    <p class="section-sub center">Three steps. No confusion, no jargon, no surprises.</p>
+
+    <div class="card-grid process-grid">
+      <article class="img-card">
+        <span class="img-card-num">01</span>
+        <div class="img-card-media" style="background-image: url('{% static 'insurance/images/consult.jpg' %}');"></div>
+        <span class="img-card-label">Consultation &amp; Policy Selection</span>
+      </article>
+
+      <article class="img-card">
+        <span class="img-card-num">02</span>
+        <div class="img-card-media" style="background-image: url('{% static 'insurance/images/support.jpg' %}');"></div>
+        <span class="img-card-label">Policy Issuance</span>
+      </article>
+
+      <article class="img-card">
+        <span class="img-card-num">03</span>
+        <div class="img-card-media" style="background-image: url('{% static 'insurance/images/claims.jpg' %}');"></div>
+        <span class="img-card-label">Support &amp; Claims Settlement</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="testimonials">
+  <div class="container">
+    <span class="eyebrow center">Client Stories</span>
+    <h2 class="section-title center">What our clients say <br>about us.</h2>
+
+    <div class="card-grid testimonial-grid">
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Filing a claim after the storm took maybe ten minutes. The payout landed two days later — no back and forth, no runaround."</p>
+        <div class="testimonial-person">
+          <div class="avatar-photo" style="background-image: url('{% static 'insurance/images/a.jpeg' %}'), var(--gradient);"></div>
+          <div>
+            <strong>Amara Mensah</strong>
+            <span>Homeowner, 3 years</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Switched my auto policy here after a confusing renewal elsewhere. Every clause was explained before I signed a thing."</p>
+        <div class="testimonial-person">
+          <div class="avatar-photo" style="background-image: url('{% static 'insurance/images/b.jpeg' %}'), var(--gradient);"></div>
+          <div>
+            <strong>Daniel Kwarteng</strong>
+            <span>Driver, 5 years</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Our family's health plan finally makes sense on paper. Support answers within minutes, every single time we've called."</p>
+        <div class="testimonial-person">
+          <div class="avatar-photo" style="background-image: url('{% static 'insurance/images/c.jpeg' %}'), var(--gradient);"></div>v 
+          <div>
+            <strong>Rita Sarpong</strong>
+            <span>Member, 2 years</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <span class="eyebrow center">Plans &amp; Pricing</span>
+    <h2 class="section-title center">Coverage that fits <br>your budget.</h2>
+    <p class="section-sub center">Switch or cancel anytime — no long-term contracts.</p>
+
+    <div class="pricing-grid">
+      <article class="price-card">
+        <h3>Basic</h3>
+        <div class="price"><span>$29</span>/mo</div>
+        <ul class="price-features">
+          <li>1 policy type</li>
+          <li>Standard claims support</li>
+          <li>Online policy management</li>
+        </ul>
+        <a href="#cta" class="btn btn-pill btn-dark">Choose Basic</a>
+      </article>
+
+      <article class="price-card featured">
+        <span class="price-badge">Most Popular</span>
+        <h3>Standard</h3>
+        <div class="price"><span>$59</span>/mo</div>
+        <ul class="price-features">
+          <li>Up to 3 policy types</li>
+          <li>Priority claims support</li>
+          <li>Dedicated advisor</li>
+          <li>24/7 phone support</li>
+        </ul>
+        <a href="#cta" class="btn btn-pill btn-light">Choose Standard</a>
+      </article>
+
+      <article class="price-card">
+        <h3>Premium</h3>
+        <div class="price"><span>$99</span>/mo</div>
+        <ul class="price-features">
+          <li>Unlimited policy types</li>
+          <li>White-glove claims handling</li>
+          <li>Advisor + legal support</li>
+          <li>Family coverage included</li>
+        </ul>
+        <a href="#cta" class="btn btn-pill btn-dark">Choose Premium</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== FAQ ========== -->
+<section class="faq" id="faq">
+  <div class="container faq-grid">
+    <div class="faq-intro">
+      <span class="eyebrow">Questions</span>
+      <h2 class="section-title">Frequently asked <br>questions.</h2>
+      <p>Can't find what you're looking for? Reach our team directly and we'll get back to you within one business day.</p>
+      <a href="#cta" class="btn btn-pill btn-dark">Contact Support</a>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-question">
+          Can I carry my information online?
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Yes — every policy, ID card, and claim history lives in your account. You can pull it up from your phone or print it whenever it's needed.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How often will I hear from my advisor?
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>We check in at renewal and after any major life change, but you can message your advisor anytime — most replies come within a few hours.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you cover pre-existing conditions?
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Coverage depends on the plan and condition. Your advisor will walk through the exact terms before you commit to anything.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What is your average claims response time?
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Most claims are reviewed within 48 hours of submission, with payouts following shortly after approval.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA BANNER ========== -->
+<section class="cta-banner" id="cta">
+  <div class="container cta-inner">
+    <h2>Ready to protect <br>what matters most?</h2>
+    <p>Get a personalized quote in under five minutes — no phone call required.</p>
+    <a href="#" class="btn btn-pill btn-light btn-icon">
+      Get Your Free Quote
+      <span class="icon-circle gradient-fill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="#10141c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="#top" class="logo light">Guard<span class="dot">.In</span></a>
+      <p>Clear, fair insurance for the life you're actually living.</p>
+      <div class="newsletter">
+        <input type="email" placeholder="Your email address" aria-label="Email address">
+        <button type="button" class="btn btn-pill btn-dark">Subscribe</button>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Insurance</h4>
+      <a href="#">Auto</a>
+      <a href="#">Health</a>
+      <a href="#">Home</a>
+      <a href="#">Life</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">FAQ</a>
+      <a href="#">Claims Guide</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>© 2026 Guard.In. All rights reserved.</span>
+    <div class="social-icons">
+      <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.4-1.3 1.7-2.3-.8.5-1.7.8-2.6 1A3.7 3.7 0 0012.9 8c0 .3 0 .6.1.9C9.6 8.7 6.8 7.2 4.9 4.8c-.3.6-.5 1.3-.5 2 0 1.4.7 2.6 1.8 3.3-.7 0-1.3-.2-1.9-.5 0 1.9 1.4 3.6 3.2 4-.6.1-1.2.2-1.8.1.5 1.6 2 2.8 3.8 2.8a7.4 7.4 0 01-4.6 1.6c-.3 0-.6 0-.9-.1A10.4 10.4 0 0010 19.5c6.1 0 9.5-5.2 9.5-9.7v-.4c.8-.6 1.5-1.3 2-2.2z"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.4c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4V9z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c2.7 0 3 0 4 .1 1 0 1.7.2 2.1.4.5.2.9.5 1.3.9.4.4.6.7.9 1.3.2.4.4 1.1.4 2.1.1 1 .1 1.3.1 4s0 3-.1 4c0 1-.2 1.7-.4 2.1-.2.5-.5.9-.9 1.3-.4.4-.7.6-1.3.9-.4.2-1.1.4-2.1.4-1 .1-1.3.1-4 .1s-3 0-4-.1c-1 0-1.7-.2-2.1-.4a3.5 3.5 0 01-1.3-.9 3.5 3.5 0 01-.9-1.3c-.2-.4-.4-1.1-.4-2.1-.1-1-.1-1.3-.1-4s0-3 .1-4c0-1 .2-1.7.4-2.1.2-.5.5-.9.9-1.3.4-.4.7-.6 1.3-.9.4-.2 1.1-.4 2.1-.4 1-.1 1.3-.1 4-.1zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8.3a3.3 3.3 0 110-6.6 3.3 3.3 0 010 6.6zm5.2-8.5a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const mainNav = document.getElementById('main-nav');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  mainNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>{% endblock we %}

@@ -1,0 +1,68 @@
+{% extends 'insurance/base.html' %}
+
+{% block we %}
+<style>
+  .form-wrap { max-width: 700px; margin: 60px auto; padding: 0 20px; }
+  .form-card { background: #fff; border-radius: 16px; border: 1.5px solid #e2e5ea; padding: 36px; }
+  .form-title { font-size: 1.4rem; font-weight: 800; color: #0d1b3e; margin-bottom: 6px; }
+  .form-sub { color: #6b7280; font-size: 0.875rem; margin-bottom: 28px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .form-group label { font-size: 0.8rem; font-weight: 700; color: #0d1b3e; }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 11px 14px; border: 1.5px solid #e2e5ea; border-radius: 8px;
+    font-family: inherit; font-size: 0.875rem; background: #f0f2f5;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: #2ec4a0; background: #fff;
+  }
+  .btn-teal { background: #2ec4a0; color: #0d1b3e; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; width: 100%; }
+  .errorlist { color: #dc2626; font-size: 0.8rem; list-style: none; margin-top: 4px; }
+</style>
+
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-title">🚑 File a Claim</div>
+    <div class="form-sub">Submit your claim and we'll review it within 24 hours.</div>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label>Select Policy</label>
+        {{ form.policy }}
+        {{ form.policy.errors }}
+      </div>
+
+      <div class="form-group">
+        <label>Description of Incident</label>
+        {{ form.description }}
+        {{ form.description.errors }}
+      </div>
+
+      <div class="form-group">
+        <label>Claim Amount (₦)</label>
+        {{ form.claim_amount }}
+        {{ form.claim_amount.errors }}
+      </div>
+
+      <div class="form-group">
+        <label>Date of Incident</label>
+        {{ form.incident_date }}
+        {{ form.incident_date.errors }}
+      </div>
+
+      <div class="form-group">
+        <label>Upload Evidence (optional)</label>
+        {{ form.evidence }}
+        {{ form.evidence.errors }}
+      </div>
+
+      <button class="btn-teal" type="submit">Submit Claim →</button>
+    </form>
+
+    <p style="margin-top:16px;text-align:center;font-size:0.8rem;color:#6b7280">
+      <a href="{% url 'dashboard' %}" style="color:#2ec4a0;font-weight:600">← Back to Dashboard</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
