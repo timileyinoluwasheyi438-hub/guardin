@@ -1,10 +1,11 @@
 {% extends 'insurance/base.html' %}
 {% load static %}
-
 {% block title %}Dashboard — Guard.In{% endblock %}
 
 {% block we %}
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
     --navy: #0d1b3e;
     --teal: #2ec4a0;
@@ -12,18 +13,17 @@
     --white: #fff;
     --muted: #6b7280;
     --border: #e2e5ea;
-    --green: #16a34a;
-    --red: #dc2626;
   }
 
-  * { box-sizing: border-box; }
-
-  .dash-wrap {
-    display: flex;
-    min-height: calc(100vh - 60px);
-    background: var(--bg);
+  body {
     font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    -webkit-font-smoothing: antialiased;
   }
+
+  /* ── LAYOUT ── */
+  .dash-wrap { display: flex; min-height: 100vh; }
 
   /* ── SIDEBAR ── */
   .dash-sidebar {
@@ -32,17 +32,20 @@
     padding: 24px 0;
     flex-shrink: 0;
     position: sticky;
-    top: 60px;
-    height: calc(100vh - 60px);
+    top: 0;
+    height: 100vh;
     overflow-y: auto;
   }
   .ds-logo {
     padding: 0 20px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     margin-bottom: 16px;
-    font-size: 1.1rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.2rem;
     font-weight: 800;
     color: #fff;
+    text-decoration: none;
+    display: block;
   }
   .ds-logo em { color: var(--teal); font-style: normal; }
   .ds-label {
@@ -62,7 +65,6 @@
     color: rgba(255,255,255,0.55);
     font-size: 0.875rem;
     font-weight: 500;
-    cursor: pointer;
     text-decoration: none;
     border-left: 3px solid transparent;
     transition: all 0.2s;
@@ -72,13 +74,10 @@
     background: rgba(46,196,160,0.1);
     border-left-color: var(--teal);
   }
+  .ds-item img { width: 22px; height: 22px; object-fit: contain; }
 
   /* ── MAIN ── */
-  .dash-main {
-    flex: 1;
-    padding: 32px;
-    overflow-y: auto;
-  }
+  .dash-main { flex: 1; padding: 32px; overflow-y: auto; padding-bottom: 32px; }
 
   .dash-topbar {
     display: flex;
@@ -87,24 +86,24 @@
     margin-bottom: 28px;
   }
   .dash-topbar h1 {
+    font-family: 'Manrope', sans-serif;
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--navy);
-    font-family: 'Manrope', sans-serif;
   }
-  .dash-topbar p { color: var(--muted); font-size: 0.875rem; }
+  .dash-topbar p { color: var(--muted); font-size: 0.875rem; margin-top: 2px; }
+
   .user-avatar {
-    width: 42px;
-    height: 42px;
+    width: 42px; height: 42px;
     border-radius: 50%;
     background: var(--teal);
     color: var(--navy);
     font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 0.9rem;
     overflow: hidden;
+    flex-shrink: 0;
+    text-decoration: none;
   }
   .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -122,11 +121,12 @@
     padding: 20px;
   }
   .sc-icon { font-size: 1.4rem; margin-bottom: 10px; }
+  .sc-icon img { width: 24px; height: 24px; object-fit: contain; }
   .sc-num {
+    font-family: 'Manrope', sans-serif;
     font-size: 1.6rem;
     font-weight: 900;
     color: var(--navy);
-    font-family: 'Manrope', sans-serif;
   }
   .sc-lbl { color: var(--muted); font-size: 0.75rem; margin-top: 2px; }
 
@@ -144,12 +144,7 @@
     font-size: 1rem;
     color: var(--navy);
   }
-  .ds-link {
-    font-size: 0.8rem;
-    color: var(--teal);
-    font-weight: 600;
-    text-decoration: none;
-  }
+  .ds-link { font-size: 0.8rem; color: var(--teal); font-weight: 600; text-decoration: none; }
   .table-card {
     background: var(--white);
     border-radius: 14px;
@@ -169,7 +164,7 @@
   }
   .table-card td {
     padding: 13px 16px;
-    font-size: 0.85rem;
+font-size: 0.85rem;
     border-bottom: 1px solid var(--border);
     color: #1a1a2e;
   }
@@ -181,7 +176,7 @@
     padding: 3px 10px;
     border-radius: 20px;
     font-size: 0.7rem;
-font-weight: 700;
+    font-weight: 700;
   }
   .badge-active { background: #dcfce7; color: #16a34a; }
   .badge-expired { background: #fee2e2; color: #dc2626; }
@@ -191,12 +186,7 @@ font-weight: 700;
   .badge-paid { background: #dcfce7; color: #16a34a; }
   .badge-rejected { background: #fee2e2; color: #dc2626; }
 
-  .empty-state {
-    text-align: center;
-    padding: 40px;
-    color: var(--muted);
-    font-size: 0.875rem;
-  }
+  .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 0.875rem; }
   .empty-state .es-icon { font-size: 2.5rem; margin-bottom: 10px; }
 
   .btn-teal {
@@ -211,77 +201,74 @@ font-weight: 700;
     text-decoration: none;
     display: inline-block;
     font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
+    transition: background 0.2s;
   }
   .btn-teal:hover { background: #25a888; }
 
   /* ── ALERTS ── */
   .messages-list { margin-bottom: 20px; }
-  .alert {
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    margin-bottom: 10px;
-  }
+  .alert { padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; margin-bottom: 10px; }
   .alert-success { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
   .alert-error { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
 
-  /* ── MOBILE ── */
+  /* ── BOTTOM NAV (mobile) ── */
   .mobile-nav {
     display: none;
     position: fixed;
     bottom: 0; left: 0; right: 0;
     background: var(--navy);
-    padding: 8px 0;
+    padding: 10px 0 20px;
     z-index: 100;
     border-top: 1px solid rgba(255,255,255,0.08);
   }
-  .mn-items {
-    display: flex;
-    justify-content: space-around;
-  }
+  .mn-items { display: flex; justify-content: space-around; }
   .mn-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
     color: rgba(255,255,255,0.45);
     font-size: 0.65rem;
     font-weight: 600;
     text-decoration: none;
     padding: 4px 12px;
   }
-  .mn-item .mn-icon { font-size: 1.2rem; }
+  .mn-item .mn-icon { font-size: 1.3rem; line-height: 1; }
   .mn-item.active { color: var(--teal); }
+  .mn-item:hover { color: var(--teal); }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .dash-sidebar { display: none; }
-    .dash-main { padding: 16px 16px 80px; }
+    .dash-main { padding: 16px 16px 90px; }
     .stat-cards { grid-template-columns: 1fr 1fr; }
     .mobile-nav { display: block; }
     .table-card { overflow-x: auto; }
     .table-card table { min-width: 500px; }
+    .dash-topbar { flex-wrap: wrap; gap: 12px; }
+  }
+  @media (max-width: 480px) {
+    .stat-cards { grid-template-columns: 1fr 1fr; gap: 10px; }
   }
 </style>
 
 <div class="dash-wrap">
 
-  <!-- SIDEBAR (desktop) -->
-  <div class="dash-sidebar">
-    <div class="ds-logo">Guard<em>.In</em></div>
+  <!-- SIDEBAR (desktop only) -->
+  <aside class="dash-sidebar">
+    <a href="{% url 'home' %}" class="ds-logo">Guard<em>.In</em></a>
     <div class="ds-label">Main</div>
-    <a href="{% url 'dashboard' %}" class="ds-item"><img src="{% static "insurance/images/repayment.png" %}" alt="" width="30px"> Dashboard</a>
-    <a href="{% url 'add_policy' %}" class="ds-item"><img src="{% static "insurance/images/note.png" %}" alt="" width="30px"> Add Policy</a>
-    <a href="{% url 'file_claim' %}" class="ds-item"><img src="{% static "insurance/images/claim2.png" %}" alt="" width="30px"> File a Claim</a>
-    <a href="{% url 'profile' %}" class="ds-item"><img src="{% static "insurance/images/pro.png" %}" alt="" width="30px"> My Profile</a>
+    <a href="{% url 'dashboard' %}" class="ds-item active">🏠 Dashboard</a>
+    <a href="{% url 'add_policy' %}" class="ds-item">📄 Add Policy</a>
+    <a href="{% url 'file_claim' %}" class="ds-item">🚑 File a Claim</a>
+    <a href="{% url 'profile' %}" class="ds-item">👤 My Profile</a>
     <div class="ds-label">Account</div>
     <a href="{% url 'logout' %}" class="ds-item">🚪 Logout</a>
-  </div>
+  </aside>
 
   <!-- MAIN CONTENT -->
-  <div class="dash-main">
+  <main class="dash-main">
 
-    <!-- Messages -->
     {% if messages %}
     <div class="messages-list">
       {% for message in messages %}
@@ -290,45 +277,43 @@ font-weight: 700;
     </div>
     {% endif %}
 
-    <!-- Top bar -->
     <div class="dash-topbar">
       <div>
-        <h1>Welcome back, {{ user.first_name|default:user.username }} </h1>
+        <h1>Welcome back, {{ user.first_name|default:user.username }} 👋</h1>
         <p>Here's your insurance summary</p>
       </div>
       <div style="display:flex;align-items:center;gap:12px">
         <a href="{% url 'file_claim' %}" class="btn-teal">+ File a Claim</a>
-        <a href="{% url 'profile' %}">
-          <div class="user-avatar">
-            {% if profile.profile_picture %}
-              <img src="{{ profile.profile_picture.url }}" alt="profile"/>
-            {% else %}
-              {{ user.first_name|first|upper|default:user.username|first|upper }}{{ user.last_name|first|upper }}
-            {% endif %}
-          </div>
+        <a href="{% url 'profile' %}" class="user-avatar">
+          {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.
+url }}" alt="profile">
+          {% else %}
+            {{ user.first_name|first|upper|default:user.username|first|upper }}{{ user.last_name|first|upper }}
+          {% endif %}
         </a>
       </div>
     </div>
 
     <!-- Stat Cards -->
     <div class="stat-cards">
-       <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/verified.png" %}" alt="" width="20px"></div>
-        <div class="sc-num">{{ open_claim_count }}</div>
-        <div class="sc-lbl">Open Claims</div>
+      <div class="stat-card">
+        <div class="sc-icon">📋</div>
+        <div class="sc-num">{{ policies|length }}</div>
+        <div class="sc-lbl">Total Policies</div>
       </div>
-    <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/open.png" %}" alt="" width="20px"></div>
+      <div class="stat-card">
+        <div class="sc-icon">📂</div>
         <div class="sc-num">{{ open_claim_count }}</div>
         <div class="sc-lbl">Open Claims</div>
       </div>
       <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/money.png" %}" alt="" width="20px"></div>
+        <div class="sc-icon">💰</div>
         <div class="sc-num">₦{{ total_premium_paid|floatformat:0 }}</div>
         <div class="sc-lbl">Premiums Paid</div>
       </div>
       <div class="stat-card">
-        <div class="sc-icon"><img src="{% static "insurance/static/insurance/images/claim2.png" %}" alt="" width="20px"></div>
+        <div class="sc-icon">✅</div>
         <div class="sc-num">₦{{ total_paid|floatformat:0 }}</div>
         <div class="sc-lbl">Claims Paid Out</div>
       </div>
@@ -361,11 +346,7 @@ font-weight: 700;
               <td>₦{{ policy.premium_amount|floatformat:0 }}</td>
               <td>₦{{ policy.coverage_amount|floatformat:0 }}</td>
               <td>{{ policy.end_date }}</td>
-              <td>
-                <span class="badge badge-{{ policy.status }}">
-                  {{ policy.get_status_display }}
-                </span>
-              </td>
+              <td><span class="badge badge-{{ policy.status }}">{{ policy.get_status_display }}</span></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -407,11 +388,7 @@ font-weight: 700;
               <td>{{ claim.description|truncatechars:40 }}</td>
               <td>₦{{ claim.claim_amount|floatformat:0 }}</td>
               <td>{{ claim.created_at|date:"M d, Y" }}</td>
-              <td>
-                <span class="badge badge-{{ claim.status }}">
-                  {{ claim.get_status_display }}
-                </span>
-              </td>
+              <td><span class="badge badge-{{ claim.status }}">{{ claim.get_status_display }}</span></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -426,24 +403,24 @@ font-weight: 700;
       </div>
     </div>
 
-  </div>
+  </main>
 </div>
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-nav">
   <div class="mn-items">
     <a href="{% url 'dashboard' %}" class="mn-item active">
-      <span class="mn-icon"><img src="{% static "insurance/static/insurance/images/homie.png" %}" alt="" width="20px"></span> Home
+<span class="mn-icon">🏠</span> Home
     </a>
     <a href="{% url 'file_claim' %}" class="mn-item">
-      <span class="mn-icon"><img src="{% static "insurance/static/insurance/images/claim2.png" %}" alt="" width="20px"></span> Claims
+      <span class="mn-icon">🚑</span> Claims
     </a>
     <a href="{% url 'add_policy' %}" class="mn-item">
-      <span class="mn-icon"><img src="{% static "insurance/static/insurance/images/verified.png" %}" alt="" width="20px"></span> Policies
+      <span class="mn-icon">📄</span> Policies
     </a>
     <a href="{% url 'profile' %}" class="mn-item">
-<span class="mn-icon"><img src="{% static "insurance/static/insurance/images/pro.png" %}" alt="" width="20px"></span> Profile
+      <span class="mn-icon">👤</span> Profile
     </a>
   </div>
 </nav>
-{% endblock we %}
+{% endblock %}

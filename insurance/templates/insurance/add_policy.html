@@ -1,27 +1,116 @@
 {% extends 'insurance/base.html' %}
+{% load static %}
+{% block title %}Add Policy — Guard.In{% endblock %}
 
 {% block we %}
 <style>
-  .form-wrap { max-width: 700px; margin: 60px auto; padding: 0 20px; }
-  .form-card { background: #fff; border-radius: 16px; border: 1.5px solid #e2e5ea; padding: 36px; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f0f2f5; min-height: 100vh; }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    background: #0d1b3e;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-bar .logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+  }
+  .top-bar .logo em { color: #2ec4a0; font-style: normal; }
+  .top-bar-nav { display: flex; gap: 8px; }
+  .top-bar-nav a {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .top-bar-nav a:hover, .top-bar-nav a.active { color: #fff; background: rgba(46,196,160,0.15); }
+
+  /* ── FORM ── */
+  .form-wrap { max-width: 700px; margin: 48px auto; padding: 0 20px 100px; }
+  .form-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1.5px solid #e2e5ea;
+    padding: 36px;
+  }
   .form-title { font-size: 1.4rem; font-weight: 800; color: #0d1b3e; margin-bottom: 6px; }
   .form-sub { color: #6b7280; font-size: 0.875rem; margin-bottom: 28px; }
   .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
   .form-group label { font-size: 0.8rem; font-weight: 700; color: #0d1b3e; }
   .form-group input, .form-group select {
-    padding: 11px 14px; border: 1.5px solid #e2e5ea; border-radius: 8px;
-    font-family: inherit; font-size: 0.875rem; background: #f0f2f5;
+    padding: 11px 14px;
+    border: 1.5px solid #e2e5ea;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    background: #f0f2f5;
+    color: #0d1b3e;
+    outline: none;
+    transition: border 0.2s, background 0.2s;
   }
-  .form-group input:focus, .form-group select:focus {
-    outline: none; border-color: #2ec4a0; background: #fff;
-  }
+  .form-group input:focus, .form-group select:focus { border-color: #2ec4a0; background: #fff; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .btn-teal { background: #2ec4a0; color: #0d1b3e; border: none; padding: 13px 28px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; width: 100%; }
+  .btn-teal {
+    background: #2ec4a0; color: #0d1b3e; border: none;
+    padding: 13px 28px; border-radius: 8px;
+    font-weight: 700; font-size: 0.95rem; cursor: pointer;
+    width: 100%; font-family: 'Inter', sans-serif;
+    transition: background 0.2s;
+  }
+  .btn-teal:hover { background: #25a888; }
+  ul.errorlist { list-style: none; }
+  ul.errorlist li { color: #dc2626; font-size: 0.78rem; margin-top: 3px; }
+
+  /* ── BOTTOM NAV ── */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #0d1b3e;
+    padding: 10px 0 20px;
+    z-index: 100;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .mn-items { display: flex; justify-content: space-around; }
+  .mn-item {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; color: rgba(255,255,255,0.45); font-size: 0.65rem;
+    font-weight: 600; text-decoration: none; padding: 4px 12px;
+  }
+  .mn-item .mn-icon { font-size: 1.3rem; }
+  .mn-item.active, .mn-item:hover { color: #2ec4a0; }
+
+  @media (max-width: 768px) {
+    .mobile-nav { display: block; }
+    .top-bar-nav { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+  }
 </style>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="{% url 'home' %}" class="logo">Guard<em>.In</em></a>
+  <div class="top-bar-nav">
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'add_policy' %}" class="active">Add Policy</a>
+    <a href="{% url 'file_claim' %}">File Claim</a>
+    <a href="{% url 'profile' %}">Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </div>
+</div>
 
 <div class="form-wrap">
   <div class="form-card">
-    <div class="form-title"> Add a Policy</div>
+    <div class="form-title">📄 Add a Policy</div>
     <div class="form-sub">Register a new insurance policy to your account.</div>
 
     <form method="POST">
@@ -30,16 +119,19 @@
       <div class="form-group">
         <label>Insurance Type</label>
         {{ form.policy_type }}
+        {{ form.policy_type.errors }}
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Start Date</label>
-          {{ form.start_date }}
+{{ form.start_date }}
+          {{ form.start_date.errors }}
         </div>
         <div class="form-group">
           <label>End Date</label>
           {{ form.end_date }}
+          {{ form.end_date.errors }}
         </div>
       </div>
 
@@ -47,19 +139,35 @@
         <div class="form-group">
           <label>Annual Premium (₦)</label>
           {{ form.premium_amount }}
+          {{ form.premium_amount.errors }}
         </div>
         <div class="form-group">
           <label>Coverage Amount (₦)</label>
           {{ form.coverage_amount }}
+          {{ form.coverage_amount.errors }}
         </div>
       </div>
 
       <button class="btn-teal" type="submit">Add Policy →</button>
     </form>
-
-    <p style="margin-top:16px;text-align:center;font-size:0.8rem;color:#6b7280">
-      <a href="{% url 'dashboard' %}" style="color:#2ec4a0;font-weight:600">← Back to Dashboard</a>
-    </p>
   </div>
 </div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav">
+  <div class="mn-items">
+    <a href="{% url 'dashboard' %}" class="mn-item">
+      <span class="mn-icon">🏠</span> Home
+    </a>
+    <a href="{% url 'file_claim' %}" class="mn-item">
+      <span class="mn-icon">🚑</span> Claims
+    </a>
+    <a href="{% url 'add_policy' %}" class="mn-item active">
+      <span class="mn-icon">📄</span> Policies
+    </a>
+    <a href="{% url 'profile' %}" class="mn-item">
+      <span class="mn-icon">👤</span> Profile
+    </a>
+  </div>
+</nav>
 {% endblock %}

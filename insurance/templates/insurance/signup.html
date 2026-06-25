@@ -1,88 +1,93 @@
-
 {% extends 'insurance/base.html' %}
 {% load static %}
+{% block title %}Sign Up — Guard.In{% endblock %}
+
 {% block we %}
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    margin: 0;
     min-height: 100vh;
     background: linear-gradient(135deg, #0d1b2a 0%, #1a2f4a 50%, #0d1b2a 100%);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: 'Inter', sans-serif;
+    padding: 40px 16px 100px;
   }
+  .logo-top {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 28px;
+    text-decoration: none;
+  }
+  .logo-top em { color: #2dd9a3; font-style: normal; }
 
   .signup-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(12px);
     border-radius: 16px;
     padding: 40px 36px;
     width: 100%;
     max-width: 420px;
-    box-shadow: 0 0 40px rgba(45, 217, 163, 0.08);
+    box-shadow: 0 0 40px rgba(45,217,163,0.08);
   }
-
   .signup-card h2 {
     color: #2dd9a3;
     text-align: center;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 28px;
-    letter-spacing: 0.5px;
   }
-
-  .signup-card label {
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .form-group label {
     display: block;
     color: #a0b4c8;
-    font-size: 13px;
+    font-size: 12px;
+    font-weight: 600;
     margin-bottom: 6px;
-    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
-
-  .signup-card input {
+  .form-group input {
     width: 100%;
     padding: 11px 14px;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 8px;
     color: #fff;
     font-size: 14px;
+    font-family: 'Inter', sans-serif;
     outline: none;
-    transition: border 0.2s;
-    box-sizing: border-box;
-    margin-bottom: 16px;
+    transition: border 0.2s, box-shadow 0.2s;
   }
-
-  .signup-card input:focus {
+  .form-group input:focus {
     border-color: #2dd9a3;
-    box-shadow: 0 0 0 3px rgba(45, 217, 163, 0.15);
+    box-shadow: 0 0 0 3px rgba(45,217,163,0.15);
   }
-
-  /* Hide Django's default help text / bullet list */
-  .signup-card ul {
-    list-style: none;
-    padding: 0;
-    margin: -10px 0 14px;
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .error-msg {
+    color: #f87171;
+    font-size: 12px;
+    margin-top: 4px;
   }
-
-  .signup-card ul li {
-    color: #64748b;
-    font-size: 11.5px;
-    padding: 2px 0;
+  .alert-error {
+    background: rgba(248,113,113,0.15);
+    border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #f87171;
+    font-size: 13px;
+    margin-bottom: 18px;
   }
-
-  .signup-card .helptext {
-    color: #64748b;
-    font-size: 11.5px;
-    display: block;
-    margin: -10px 0 14px;
-  }
-
-  .btn {
+  .btn-submit {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     background: #2dd9a3;
     color: #0d1b2a;
     border: none;
@@ -91,57 +96,74 @@
     font-weight: 700;
     cursor: pointer;
     margin-top: 8px;
+    font-family: 'Inter', sans-serif;
     transition: background 0.2s, box-shadow 0.2s;
-    box-shadow: 0 0 16px rgba(45, 217, 163, 0.3);
+    box-shadow: 0 0 16px rgba(45,217,163,0.3);
   }
-
-  .btn:hover {
-    background: #22b88a;
-    box-shadow: 0 0 24px rgba(45, 217, 163, 0.5);
-  }
-
+  .btn-submit:hover { background: #22b88a; box-shadow: 0 0 24px rgba(45,217,163,0.5); }
   .switch-text {
     text-align: center;
     margin-top: 20px;
     color: #a0b4c8;
     font-size: 13px;
   }
-
-  .switch-text a {
-    color: #2dd9a3;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .switch-text a:hover {
-    text-decoration: underline;
-  }
-
-  /* Email field you manually added */
-  .email-group {
-    margin-bottom: 4px;
-  }
+  .switch-text a { color: #2dd9a3; text-decoration: none; font-weight: 600; }
+  /* helptext / ul from Django */
+  .helptext { color: #64748b; font-size: 11px; display: block; margin-top: 4px; }
+  ul.errorlist { list-style: none; }
+  ul.errorlist li { color: #f87171; font-size: 12px; margin-top: 4px; }
 </style>
 
+<a href="{% url 'home' %}" class="logo-top">Guard<em>.In</em></a>
 
-
-<form method="POST">
-  {% csrf_token %}
-  <input type="text" name="first_name" placeholder="First name" required/>
-  <input type="text" name="last_name" placeholder="Last name" required/>
-  <input type="text" name="username" placeholder="Username" required/>
-  <input type="email" name="email" placeholder="Email" required/>
-  <input type="password" name="password1" placeholder="Password" required/>
-  <input type="password" name="password2" placeholder="Confirm password" required/>
+<div class="signup-card">
+  <h2>Create Account</h2>
 
   {% if messages %}
     {% for message in messages %}
-      <p style="color:red">{{ message }}</p>
+      <div class="alert-error">{{ message }}</div>
     {% endfor %}
   {% endif %}
 
-  <button type="submit">Create Account</button>
-  <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
-</form>
-{% endblock we %}
+  <form method="POST">
+    {% csrf_token %}
 
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="first_name" placeholder="First name" required>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" name="last_name" placeholder="Last name" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Choose a username" required>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="your@email.com" required>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+<input type="password" name="password1" placeholder="Create a password" required>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" name="password2" placeholder="Repeat your password" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Create Account →</button>
+  </form>
+
+  <div class="switch-text">
+    Already have an account? <a href="{% url 'login' %}">Log In</a>
+  </div>
+</div>
+{% endblock %}
