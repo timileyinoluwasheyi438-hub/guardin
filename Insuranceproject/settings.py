@@ -9,7 +9,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-only')
 
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -20,8 +20,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cloudinary_storage b'
-    'insurance','cloudinary'
+    'cloudinary_storage',
+    'cloudinary',
+    'insurance',
+    
 ]
 
 MIDDLEWARE = [

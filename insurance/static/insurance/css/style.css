@@ -1106,6 +1106,12 @@ h1, h2, h3, h4 {
   font-size: 1.2rem;
 }
 
+.img-card-media{
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .bn-item:hover {
   color: #2EC4A0;
 }

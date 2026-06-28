@@ -94,7 +94,8 @@
   .dash-topbar p { color: var(--muted); font-size: 0.875rem; margin-top: 2px; }
 
   .user-avatar {
-    width: 42px; height: 42px;
+    margin-top: 8px;
+    width: 34px; height: 34px;
     border-radius: 50%;
     background: var(--teal);
     color: var(--navy);
@@ -258,10 +259,10 @@ font-size: 0.85rem;
   <aside class="dash-sidebar">
     <a href="{% url 'home' %}" class="ds-logo">Guard<em>.In</em></a>
     <div class="ds-label">Main</div>
-    <a href="{% url 'dashboard' %}" class="ds-item active">🏠 Dashboard</a>
-    <a href="{% url 'add_policy' %}" class="ds-item">📄 Add Policy</a>
-    <a href="{% url 'file_claim' %}" class="ds-item">🚑 File a Claim</a>
-    <a href="{% url 'profile' %}" class="ds-item">👤 My Profile</a>
+    <a href="{% url 'dashboard' %}" class="ds-item active"><img src="https://i.ibb.co/B5twdT32/icons8-home-50-1.png" alt="icons8 home 50 (1)" border="0">  Dashboard</a>
+    <a href="{% url 'add_policy' %}" class="ds-item"><img src="https://i.ibb.co/gLRkFH1t/icons8-safe-50.png" alt="icons8 safe 50" border="0"> Add Policy</a>
+    <a href="{% url 'file_claim' %}" class="ds-item"><img src="https://i.ibb.co/cKQ2xvpF/icons8-policy-document-50.png" alt="icons8 policy document 50" border="0"> File a Claim</a>
+    <a href="{% url 'profile' %}" class="ds-item"><img src="https://i.ibb.co/fVvqZJ4m/icons8-profile-50.png" alt="icons8 profile 50" border="0"> My Profile</a>
     <div class="ds-label">Account</div>
     <a href="{% url 'logout' %}" class="ds-item">🚪 Logout</a>
   </aside>
@@ -279,15 +280,14 @@ font-size: 0.85rem;
 
     <div class="dash-topbar">
       <div>
-        <h1>Welcome back, {{ user.first_name|default:user.username }} 👋</h1>
+        <h1>Welcome back, {{ user.first_name|default:user.username }} </h1>
         <p>Here's your insurance summary</p>
       </div>
       <div style="display:flex;align-items:center;gap:12px">
         <a href="{% url 'file_claim' %}" class="btn-teal">+ File a Claim</a>
         <a href="{% url 'profile' %}" class="user-avatar">
           {% if profile.profile_picture %}
-            <img src="{{ profile.profile_picture.
-url }}" alt="profile">
+            <img src="{{ profile.profile_picture.url }}" alt="profile">
           {% else %}
             {{ user.first_name|first|upper|default:user.username|first|upper }}{{ user.last_name|first|upper }}
           {% endif %}
@@ -298,22 +298,22 @@ url }}" alt="profile">
     <!-- Stat Cards -->
     <div class="stat-cards">
       <div class="stat-card">
-        <div class="sc-icon">📋</div>
+        <div class="sc-icon"><img src="https://i.ibb.co/mKFCLCz/note.png" alt="note" border="0"></div>
         <div class="sc-num">{{ policies|length }}</div>
         <div class="sc-lbl">Total Policies</div>
       </div>
       <div class="stat-card">
-        <div class="sc-icon">📂</div>
+        <div class="sc-icon"><img src="https://i.ibb.co/gLRkFH1t/icons8-safe-50.png" alt="icons8 safe 50" border="0"></div>
         <div class="sc-num">{{ open_claim_count }}</div>
         <div class="sc-lbl">Open Claims</div>
       </div>
       <div class="stat-card">
-        <div class="sc-icon">💰</div>
+        <div class="sc-icon"><img src="https://i.ibb.co/F9YGgK9/icons8-get-cash-48.png" alt="icons8 get cash 48" border="0"></div>
         <div class="sc-num">₦{{ total_premium_paid|floatformat:0 }}</div>
         <div class="sc-lbl">Premiums Paid</div>
       </div>
       <div class="stat-card">
-        <div class="sc-icon">✅</div>
+        <div class="sc-icon"><img src="https://i.ibb.co/JjQgdrMX/icons8-verified-account-48.png" alt="icons8 verified account 48" border="0"></div>
         <div class="sc-num">₦{{ total_paid|floatformat:0 }}</div>
         <div class="sc-lbl">Claims Paid Out</div>
       </div>
@@ -353,7 +353,7 @@ url }}" alt="profile">
         </table>
         {% else %}
         <div class="empty-state">
-          <div class="es-icon">📄</div>
+          <div class="es-icon"><img src="https://i.ibb.co/1YBsN6y9/icons8-signing-a-document-50.png" alt="icons8 signing a document 50" border="0"></div>
           <p>No policies yet.</p>
           <a href="{% url 'add_policy' %}" class="btn-teal" style="margin-top:12px">Add Your First Policy</a>
         </div>
@@ -395,7 +395,7 @@ url }}" alt="profile">
         </table>
         {% else %}
         <div class="empty-state">
-          <div class="es-icon">🚑</div>
+          <div class="es-icon"><img src="https://i.ibb.co/cKQ2xvpF/icons8-policy-document-50.png" alt="icons8 policy document 50" border="0"></div>
           <p>No claims filed yet.</p>
           <a href="{% url 'file_claim' %}" class="btn-teal" style="margin-top:12px">File Your First Claim</a>
         </div>
@@ -410,17 +410,21 @@ url }}" alt="profile">
 <nav class="mobile-nav">
   <div class="mn-items">
     <a href="{% url 'dashboard' %}" class="mn-item active">
-<span class="mn-icon">🏠</span> Home
+<span class="mn-icon"><img src="https://i.ibb.co/B5twdT32/icons8-home-50-1.png" alt="icons8 home 50 (1)" border="0" width="23px"> </span> Home
     </a>
     <a href="{% url 'file_claim' %}" class="mn-item">
-      <span class="mn-icon">🚑</span> Claims
+      <span class="mn-icon"><img src="https://i.ibb.co/cKQ2xvpF/icons8-policy-document-50.png" alt="icons8 policy document 50" border="0" width="23px"> </span> Claims
     </a>
     <a href="{% url 'add_policy' %}" class="mn-item">
-      <span class="mn-icon">📄</span> Policies
+      <span class="mn-icon"><img src="https://i.ibb.co/1YBsN6y9/icons8-signing-a-document-50.png" alt="icons8 signing a document 50" border="0" width="23px"></span> Policies
     </a>
-    <a href="{% url 'profile' %}" class="mn-item">
-      <span class="mn-icon">👤</span> Profile
-    </a>
+           <a href="{% url 'profile' %}" class="user-avatar" width="18px">
+          {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="profile">
+          {% else %}
+            {{ user.first_name|first|upper|default:user.username|first|upper }}{{ user.last_name|first|upper }}
+          {% endif %}
+        </a>
   </div>
 </nav>
 {% endblock %}

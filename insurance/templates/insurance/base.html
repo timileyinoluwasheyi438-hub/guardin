@@ -9,8 +9,101 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800;900&display=swap" rel="stylesheet">
   {% block extra_head %}{% endblock %}
+
+  <style>
+    #splash-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #0f1f3d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: splashFadeOut 0.6s ease forwards 2.8s;
+    }
+
+    #splash-screen.hidden {
+      display: none;
+    }
+
+    .splash-logo {
+      font-family: 'Sora', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: white;
+      animation: zoomIn 0.8s ease forwards;
+    }
+
+    .splash-logo span {
+      color: #4ade80;
+    }
+
+    .splash-tagline {
+      font-family: 'Inter', sans-serif;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-top: 10px;
+      animation: fadeUp 0.8s ease forwards 0.5s;
+      opacity: 0;
+    }
+
+    .splash-dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 40px;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+      opacity: 0;
+    }
+
+    .splash-dots span {
+      width: 8px; height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: bounce 0.6s infinite alternate;
+    }
+
+    .splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.4); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(15px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-8px); }
+    }
+
+    @keyframes splashFadeOut {
+      to { opacity: 0; pointer-events: none; }
+    }
+  </style>
 </head>
 <body>
+
+  <div id="splash-screen">
+    <div class="splash-logo">Guard<span>.In</span></div>
+    <p class="splash-tagline">Your protection, simplified.</p>
+    <div class="splash-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('splash-screen').classList.add('hidden');
+    }, 3400);
+  </script>
+
   {% block we %}{% endblock %}
+
 </body>
 </html>

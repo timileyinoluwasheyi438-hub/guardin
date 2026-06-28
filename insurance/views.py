@@ -153,13 +153,27 @@ def profile(request):
     profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile,
-                                 user=request.user)
+        form = ProfileUpdateForm(
+            request.POST, 
+            request.FILES, 
+            instance=profile,
+            user=request.user
+        )
         if form.is_valid():
+            request.user.first_name = form.cleaned_data.get('first_name', '')
+            request.user.last_name = form.cleaned_data.get('last_name', '')
+            request.user.email = form.cleaned_data.get('email', '')
+            request.user.save()
             form.save()
             messages.success(request, 'Profile updated successfully!')
             return redirect('profile')
+        else:
+            # Show form errors
+            print(form.errors)
     else:
         form = ProfileUpdateForm(instance=profile, user=request.user)
 
-    return render(request, 'insurance/profile.html', {'form': form, 'profile': profile})
+    return render(request, 'insurance/profile.html', {
+        'form': form, 
+        'profile': profile
+    })
