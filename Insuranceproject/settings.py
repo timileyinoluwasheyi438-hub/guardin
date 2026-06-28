@@ -1,6 +1,12 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from pathlib import Path
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,7 +17,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-only')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,8 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
+    
     'django.contrib.staticfiles',
+    'cloudinary_storage',
     'cloudinary',
     'insurance',
     
@@ -87,11 +94,25 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', ''),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', ''),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', ''),
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    'SECURE': True,
 }
 
+# For modern Django (recommended)
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",  # or your current one
+    },
+}
+
+# Fallback (in case STORAGES doesn't work)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Keep your existing MEDIA_URL
+MEDIA_URL = '/media/'
