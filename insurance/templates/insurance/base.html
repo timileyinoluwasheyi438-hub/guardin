@@ -98,13 +98,16 @@
   </div>
 
   <script>
-   if (sessionStorage.getItem('splashShown')) {
-  document.getElementById('splash-screen').classList.add('hidden');
-} else {
-  sessionStorage.setItem('splashShown', 'true');
+const fromLogin = document.referrer.includes('/login') || 
+                  document.referrer.includes('/signup') ||
+                  document.referrer === '';
+
+if (fromLogin) {
   setTimeout(() => {
     document.getElementById('splash-screen').classList.add('hidden');
   }, 3400);
+} else {
+  document.getElementById('splash-screen').classList.add('hidden');
 }
   </script>
 
